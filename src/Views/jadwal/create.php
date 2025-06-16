@@ -1,52 +1,99 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Tambah Jadwal Kajian</title>
-    <style>
-        body { font-family: sans-serif; background-color: #f4f4f4; margin: 0; }
-        .container { max-width: 700px; margin: 0 auto; padding: 20px; }
-        .card { background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #333; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; }
-        input[type="text"], input[type="datetime-local"], textarea {
-            width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;
-        }
-        button { width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
-        a { color: #007bff; }
-    </style>
-</head>
-<body>
-    <?php require_once BASE_PATH . '/src/Views/partials/user_panel.php'; ?>
-    <div class="container">
-        <div class="card">
-            <h1>Form Tambah Jadwal Kajian</h1>
-            <form action="/RPL-FINALFIX/public/jadwal/simpan" method="POST">
-                <div class="form-group">
-                    <label>Judul Kajian:</label>
-                    <input type="text" name="judul_kajian" required>
-                </div>
-                <div class="form-group">
-                    <label>Nama Penceramah:</label>
-                    <input type="text" name="penceramah" required>
-                </div>
-                <div class="form-group">
-                    <label>Waktu & Tanggal:</label>
-                    <input type="datetime-local" name="waktu_kajian" required>
-                </div>
-                <div class="form-group">
-                    <label>Lokasi:</label>
-                    <input type="text" name="lokasi" value="Ruang Utama" required>
-                </div>
-                <div class="form-group">
-                    <label>Keterangan (Opsional):</label>
-                    <textarea name="keterangan" rows="3"></textarea>
-                </div>
-                <button type="submit">Simpan Jadwal</button>
-            </form>
-            <p style="text-align: center; margin-top: 20px;"><a href="/RPL-FINALFIX/public/jadwal">Batal</a></p>
-        </div>
+<div class="form-wrapper">
+    <div class="form-header">
+        <h1>Form Tambah Jadwal Kajian</h1>
+        <a href="<?= base_url('jadwal') ?>" class="btn btn-back">Kembali ke Daftar</a>
     </div>
-</body>
-</html>
+
+    <form class="form-card" action="<?= base_url('jadwal/simpan') ?>" method="POST">
+        <div class="form-group">
+            <label for="judul_kajian">Judul Kajian</label>
+            <input type="text" id="judul_kajian" name="judul_kajian" required>
+        </div>
+
+        <div class="form-group">
+            <label for="penceramah">Nama Penceramah</label>
+            <input type="text" id="penceramah" name="penceramah" required placeholder="Contoh: Ust. Abdul Somad">
+        </div>
+
+        <div class="form-group">
+            <label for="waktu_kajian">Waktu & Tanggal Kajian</label>
+            <input type="datetime-local" id="waktu_kajian" name="waktu_kajian" required>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Simpan Jadwal</button>
+        </div>
+    </form>
+</div>
+
+<style>
+.form-wrapper {
+    padding: 20px;
+}
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.form-header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+.form-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+.form-group input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+.form-actions {
+    text-align: right;
+    margin-top: 30px;
+}
+.btn {
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+.btn-primary {
+    background-color: #28a745;
+}
+.btn-primary:hover {
+    background-color: #218838;
+}
+.btn-back {
+    background-color: #6c757d;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+.btn-back:hover {
+    background-color: #5a6268;
+}
+</style>

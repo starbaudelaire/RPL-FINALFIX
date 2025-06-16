@@ -2,15 +2,22 @@
 
 namespace Controllers;
 
+use Models\User;
+
 class AuthController {
 
-    // Menampilkan halaman form login
+    /**
+     * Menampilkan halaman form login.
+     */
     public function showLoginForm() {
-        // Halaman login tidak butuh data apa-apa, jadi array-nya kosong
-        view('auth/login');
+        // DIUBAH: Gunakan 'public_view' untuk halaman publik seperti login,
+        // supaya tidak dibungkus dengan layout admin.
+        public_view('auth/login');
     }
 
-    // Method login() tidak berubah karena tidak me-render view, hanya redirect
+    /**
+     * Memproses data login dari form.
+     */
     public function login() {
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -25,20 +32,19 @@ class AuthController {
                 'role' => $user['role']
             ];
             
-            // Semua role setelah login, dilempar ke dashboard
-            header('Location: /RPL-FINALFIX/public/dashboard');
-            exit();
+            // Redirect ke dashboard setelah login
+            redirect('dashboard');
         } else {
             // Nanti bisa tambahin flash message error di sini
-            header('Location: /RPL-FINALFIX/public/login');
-            exit();
+            redirect('login');
         }
     }
 
-    // Method logout() tidak berubah
+    /**
+     * Proses logout user.
+     */
     public function logout() {
         session_destroy();
-        header('Location: /RPL-FINALFIX/public/login');
-        exit();
+        redirect('login');
     }
 }

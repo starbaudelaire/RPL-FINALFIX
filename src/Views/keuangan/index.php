@@ -1,46 +1,7 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Laporan Keuangan</title>
-    <link rel="stylesheet" href="/RPL-FINALFIX/public/style.css">
-    <style>
-        /* ... (style yang udah ada biarin aja) ... */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px;}
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .pemasukan { color: green; }
-        .pengeluaran { color: red; }
-        /* Style untuk tombol hapus */
-        .btn-hapus {
-            background-color: #dc3545;
-            color: white;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .btn-hapus:hover { background-color: #c82333; }
-        /* Style untuk tombol edit */
-.btn-edit {
-    background-color: #ffc107;
-    color: black;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-}
-.btn-edit:hover { background-color: #e0a800; }
-    </style>
-</head>
-<body>
-  <?php require_once BASE_PATH . '/src/Views/partials/user_panel.php'; // <--- TINGGAL PANGGIL INI ?>
-    <div class="container">
-    <div style="text-align: center;">
+<div class="table-wrapper">
+    <div class="table-header">
         <h1>Laporan Keuangan Masjid</h1>
-        <a href="/RPL-FINALFIX/public/keuangan/tambah">Tambah Transaksi Baru</a>
+        <a href="<?= base_url('keuangan/tambah') ?>" class="btn btn-tambah">Tambah Transaksi Baru</a>
     </div>
 
     <?php if (!empty($semua_transaksi)): ?>
@@ -50,42 +11,52 @@
                     <th>Tanggal</th>
                     <th>Deskripsi</th>
                     <th>Jenis</th>
-                    <th>Jumlah (Rp)</th>
-                    <th>Aksi</th> </tr>
+                    <th style="text-align: right;">Jumlah (Rp)</th>
+                    <th style="width: 15%; text-align: center;">Aksi</th>
+                </tr>
             </thead>
             <tbody>
                 <?php foreach ($semua_transaksi as $transaksi): ?>
                     <tr>
-                        <td><?= htmlspecialchars($transaksi['tanggal']) ?></td>
+                        <td><?= htmlspecialchars(date('d M Y', strtotime($transaksi['tanggal']))) ?></td>
                         <td><?= htmlspecialchars($transaksi['deskripsi']) ?></td>
-                        <td class="<?= htmlspecialchars($transaksi['jenis']) ?>">
+                        <td class="jenis-<?= htmlspecialchars($transaksi['jenis']) ?>">
                             <?= htmlspecialchars(ucfirst($transaksi['jenis'])) ?>
                         </td>
                         <td style="text-align: right;">
                             <?= number_format($transaksi['jumlah'], 0, ',', '.') ?>
                         </td>
-                        <td>
-                            <form action="/RPL-FINALFIX/public/keuangan/hapus" method="POST" onsubmit="return confirm('Yakin mau hapus data ini? Data yang dihapus tidak bisa dikembalikan!');">
-                                <input type="hidden" name="id" value="<?= $transaksi['id'] ?>">
-                                <button type="submit" class="btn-hapus">Hapus</button>
-                            </form>
+                        <td class="actions-cell">
+                            <a href="<?= base_url('keuangan/edit?id=' . $transaksi['id']) ?>" class="btn btn-edit">Edit</a>
+                            <?php if (isAdmin()): ?>
+                                <form action="<?= base_url('keuangan/hapus') ?>" method="POST" onsubmit="return confirm('Yakin mau hapus data ini?');">
+                                    <input type="hidden" name="id" value="<?= $transaksi['id'] ?>">
+                                    <button type="submit" class="btn-hapus">Hapus</button>
+                                </form>
+                            <?php endif; ?>
                         </td>
-                        <td>
-                      <a href="/RPL-FINALFIX/public/keuangan/edit?id=<?= $transaksi['id'] ?>" class="btn-edit">Edit</a>
-    <?php if (isAdmin()): // <-- BUNGKUS DENGAN KONDISI INI ?>
-    <form action="/RPL-FINALFIX/public/keuangan/hapus" method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus item ini?');">
-        <input type="hidden" name="id" value="<?= $transaksi['id'] ?>">
-        <button type="submit" class="btn-hapus">Hapus</button>
-    </form>
-    <?php endif; // <-- JANGAN LUPA PENUTUPNYA ?>
-                        </td>
-                        </tr>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>
-        <p>Belum ada data transaksi.</p>
+        <p style="text-align: center;">Belum ada data transaksi.</p>
     <?php endif; ?>
+</div>
 
-</body>
-</html>
+<style>
+.table-wrapper { padding: 20px; }
+.table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.table-header h1 { margin: 0; font-size: 24px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { border: 1px solid #ddd; padding: 12px; text-align: left; vertical-align: middle; }
+th { background-color: #f8f9fa; }
+.btn, button.btn-hapus { text-decoration: none; padding: 8px 15px; border-radius: 5px; color: white; display: inline-block; border: none; cursor: pointer; font-size: 14px; }
+.btn-tambah { background-color: #28a745; }
+.btn-edit { background-color: #ffc107; color: #333; }
+.btn-hapus { background-color: #dc3545; }
+.actions-cell { text-align: center; }
+.actions-cell form { display: inline-block; margin-left: 5px; }
+.jenis-pemasukan { color: #28a745; font-weight: bold; }
+.jenis-pengeluaran { color: #dc3545; font-weight: bold; }
+</style>

@@ -1,45 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Daftar Inventaris Masjid</title>
-    <link rel="stylesheet" href="/RPL-FINALFIX/public/style.css">
-    <style>
-        body { font-family: sans-serif; }
-        .container { max-width: 1000px; margin: 20px auto; padding: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .actions-cell { white-space: nowrap; }
-        .btn, a.btn {
-            display: inline-block;
-            padding: 6px 12px;
-            margin-bottom: 0;
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 1.42857143;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: middle;
-            cursor: pointer;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            text-decoration: none;
-        }
-        .btn-tambah { color: #fff; background-color: #28a745; border-color: #28a745; }
-        .btn-edit { color: #212529; background-color: #ffc107; border-color: #ffc107; }
-        .btn-hapus { color: #fff; background-color: #dc3545; border-color: #dc3545; }
-    </style>
-</head>
-<body>
-  <?php require_once BASE_PATH . '/src/Views/partials/user_panel.php'; // <--- TINGGAL PANGGIL INI ?>
-    <div class="container">
-    <div class="container">
-        <div style="text-align: center;">
-            <h1>Daftar Inventaris Masjid</h1>
-            <a href="/RPL-FINALFIX/public/inventaris/tambah" class="btn btn-tambah">Tambah Inventaris Baru</a>
-        </div>
+<div class="table-wrapper">
+    <div class="table-header">
+        <h1>Daftar Inventaris Masjid</h1>
+        <a href="<?= base_url('inventaris/tambah') ?>" class="btn btn-tambah">Tambah Inventaris Baru</a>
+    </div>
 
+    <?php if (!empty($semua_inventaris)): ?>
         <table>
             <thead>
                 <tr>
@@ -48,34 +13,46 @@
                     <th>Kondisi</th>
                     <th>Tanggal Pengadaan</th>
                     <th>Keterangan</th>
-                    <th style="width: 15%;">Aksi</th>
+                    <th style="width: 15%; text-align: center;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($semua_inventaris)): ?>
-                    <?php foreach ($semua_inventaris as $item): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($item['nama_barang']) ?></td>
-                            <td><?= htmlspecialchars($item['jumlah']) ?></td>
-                            <td><?= htmlspecialchars($item['kondisi']) ?></td>
-                            <td><?= htmlspecialchars(date('d M Y', strtotime($item['tanggal_pengadaan']))) ?></td>
-                            <td><?= htmlspecialchars($item['keterangan']) ?></td>
-                            <td class="actions-cell">
-                                <a href="/RPL-FINALFIX/public/inventaris/edit?id=<?= $item['id'] ?>" class="btn btn-edit">Edit</a>
-                                <form action="/RPL-FINALFIX/public/inventaris/hapus" method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus item ini?');">
-                                    <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                                    <button type="submit" class="btn btn-hapus">Hapus</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
+                <?php foreach ($semua_inventaris as $item): ?>
                     <tr>
-                        <td colspan="6" style="text-align: center;">Belum ada data inventaris.</td>
+                        <td><?= htmlspecialchars($item['nama_barang']) ?></td>
+                        <td><?= htmlspecialchars($item['jumlah']) ?></td>
+                        <td><?= htmlspecialchars($item['kondisi']) ?></td>
+                        <td><?= htmlspecialchars(date('d M Y', strtotime($item['tanggal_pengadaan']))) ?></td>
+                        <td><?= htmlspecialchars($item['keterangan']) ?></td>
+                        <td class="actions-cell">
+                            <a href="<?= base_url('inventaris/edit?id=' . $item['id']) ?>" class="btn btn-edit">Edit</a>
+                            <?php if (isAdmin()): ?>
+                            <form action="<?= base_url('inventaris/hapus') ?>" method="POST" onsubmit="return confirm('Yakin hapus item ini?');">
+                                <input type="hidden" name="id" value="<?= $item['id'] ?>">
+                                <button type="submit" class="btn-hapus">Hapus</button>
+                            </form>
+                            <?php endif; ?>
+                        </td>
                     </tr>
-                <?php endif; ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
-</body>
-</html>
+    <?php else: ?>
+        <p style="text-align: center;">Belum ada data inventaris.</p>
+    <?php endif; ?>
+</div>
+
+<style>
+.table-wrapper { padding: 20px; }
+.table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.table-header h1 { margin: 0; font-size: 24px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { border: 1px solid #ddd; padding: 12px; text-align: left; vertical-align: middle; }
+th { background-color: #f8f9fa; }
+.btn, button.btn-hapus { text-decoration: none; padding: 8px 15px; border-radius: 5px; color: white; display: inline-block; border: none; cursor: pointer; font-size: 14px; white-space: nowrap; }
+.btn-tambah { background-color: #28a745; }
+.btn-edit { background-color: #ffc107; color: #333; }
+.btn-hapus { background-color: #dc3545; }
+.actions-cell { text-align: center; }
+.actions-cell form { display: inline-block; margin-left: 5px; }
+</style>

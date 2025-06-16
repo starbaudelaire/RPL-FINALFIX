@@ -1,43 +1,62 @@
-<style>
-    .shortcut-container { display: flex; gap: 20px; margin-top: 20px; }
-    .shortcut-card {
-        flex: 1;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        text-align: center;
-        padding: 20px;
-        text-decoration: none;
-        color: #333;
-        transition: transform 0.2s;
-    }
-    .shortcut-card:hover { transform: translateY(-5px); }
-    .shortcut-card img { max-width: 100px; margin-bottom: 15px; }
-    .shortcut-card h3 { margin: 0; }
-</style>
-
-<h1>Beranda Pengurus</h1>
-<p>Pilih menu di samping atau gunakan shortcut di bawah ini untuk navigasi cepat.</p>
-
-<div class="shortcut-container">
-    <?php if (isAdmin() || isSekben()): ?>
-    <a href="/RPL-FINALFIX/public/keuangan" class="shortcut-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="Keuangan">
-        <h3>Laporan Keuangan</h3>
-    </a>
-    <?php endif; ?>
-
-    <?php if (isAdmin() || isRumahTangga()): ?>
-    <a href="/RPL-FINALFIX/public/admin/peminjaman" class="shortcut-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/3500/3500833.png" alt="Peminjaman">
-        <h3>Manajemen Peminjaman</h3>
-    </a>
-    <?php endif; ?>
-
-    <?php if (isAdmin() || isSekben() || isRumahTangga()): ?>
-    <a href="/RPL-FINALFIX/public/jadwal" class="shortcut-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/3409/3409586.png" alt="Jadwal">
-        <h3>Jadwal Kajian</h3>
-    </a>
-    <?php endif; ?>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Beranda Pengurus</h3>
+    </div>
+    <div class="card-body">
+        <p>Pilih menu di samping atau gunakan shortcut di bawah ini untuk navigasi cepat.</p>
+        
+        <div class="shortcut-container">
+            <a href="<?= base_url('keuangan') ?>" class="shortcut-card">
+                <img src="https://img.icons8.com/plasticine/100/000000/money-circulation.png" alt="Keuangan">
+                <h4>Laporan Keuangan</h4>
+            </a>
+            <a href="<?= base_url('admin/peminjaman') ?>" class="shortcut-card">
+                <img src="https://img.icons8.com/plasticine/100/000000/add-shopping-cart.png" alt="Peminjaman">
+                <h4>Manajemen Peminjaman</h4>
+            </a>
+            <a href="<?= base_url('jadwal') ?>" class="shortcut-card">
+                <img src="https://img.icons8.com/plasticine/100/000000/overtime.png" alt="Jadwal">
+                <h4>Jadwal Kajian</h4>
+            </a>
+        </div>
+    </div>
 </div>
+
+<style>
+.shortcut-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.shortcut-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.2s ease-in-out;
+}
+.shortcut-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.shortcut-card img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+}
+.shortcut-card h4 {
+    margin: 0;
+    font-size: 16px;
+}
+.card { background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 20px; }
+.card-header { padding: 15px 20px; border-bottom: 1px solid #f2f2f2; }
+.card-title { margin: 0; font-size: 18px; }
+.card-body { padding: 20px; }
+</style>

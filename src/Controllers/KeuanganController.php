@@ -5,7 +5,9 @@ namespace Controllers;
 class KeuanganController {
 
     public function index() {
-        authorize(isAdmin() || isSekben());
+        // DIUBAH: Panggil authorize dengan array role
+        authorize(['admin', 'sekben']);
+        
         $transaksiModel = new \Models\Transaksi();
         
         view('keuangan/index', [
@@ -14,12 +16,12 @@ class KeuanganController {
     }
 
     public function create() {
-        authorize(isAdmin() || isSekben());
+        authorize(['admin', 'sekben']);
         view('keuangan/create');
     }
 
     public function edit() {
-        authorize(isAdmin() || isSekben());
+        authorize(['admin', 'sekben']);
         $id = $_GET['id'];
         $transaksiModel = new \Models\Transaksi();
         $transaksi = $transaksiModel->findById($id);
@@ -27,47 +29,31 @@ class KeuanganController {
         if ($transaksi) {
             view('keuangan/edit', ['transaksi' => $transaksi]);
         } else {
-            authorize(false, 404); // Tampilkan halaman 404 jika tidak ketemu
+            // Tampilkan halaman 404 jika tidak ketemu
+            view('errors/403', ['message' => 'Data transaksi tidak ditemukan.']);
+            die();
         }
     }
 
-    // ... (di dalam class KeuanganController) ...
+    // Fungsi store, update, destroy yang sudah kita isi sebelumnya
+    public function store() { 
+        authorize(['admin', 'sekben']);
+        $transaksiModel = new \Models\Transaksi();
+        $transaksiModel->save($_POST);
+        redirect('keuangan');
+    }
 
-public function store()
-{
-    // Otorisasi: admin dan sekben boleh nambah
-    authorize(['admin', 'sekben']);
-    
-    $transaksiModel = new \App\Models\Transaksi();
-    $transaksiModel->save($_POST);
-    
-    header('Location: /RPL-FINALFIX/public/keuangan');
-    exit;
-}
+    public function update() {
+        authorize(['admin', 'sekben']);
+        $transaksiModel = new \Models\Transaksi();
+        $transaksiModel->update($_POST);
+        redirect('keuangan');
+    }
 
-public function update()
-{
-    // Otorisasi: admin dan sekben boleh ngedit
-    authorize(['admin', 'sekben']);
-    
-    $id = $_POST['id'];
-    $transaksiModel = new \App\Models\Transaksi();
-    $transaksiModel->update($id, $_POST);
-    
-    header('Location: /RPL-FINALFIX/public/keuangan');
-    exit;
-}
-
-public function destroy()
-{
-    // Otorisasi: cuma admin yang boleh hapus
-    authorize(['admin']);
-    
-    $id = $_POST['id'];
-    $transaksiModel = new \App\Models\Transaksi();
-    $transaksiModel->delete($id);
-    
-    header('Location: /RPL-FINALFIX/public/keuangan');
-    exit;
-}
+    public function destroy() { 
+        authorize(['admin']); // Hanya admin yg bisa hapus
+        $transaksiModel = new \Models\Transaksi();
+        $transaksiModel->delete($_POST['id']);
+        redirect('keuangan');
+    }
 }

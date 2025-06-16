@@ -5,9 +5,11 @@ namespace Controllers;
 class DashboardController {
 
     public function index() {
-        authorize(isAuthenticated());
+        // DIUBAH: Panggil 'authorize' dengan cara baru yang lebih aman.
+        // Kita kasih tau role apa aja yang boleh akses halaman dashboard.
+        authorize(['admin', 'sekben', 'rumahtangga']);
 
-        // Untuk sementara, kita hanya butuh data jadwal di dashboard
+        // Kode di bawah ini biarin aja, udah bener.
         $jadwalModel = new \Models\Jadwal();
 
         view('dashboard/index', [

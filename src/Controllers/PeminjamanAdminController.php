@@ -5,7 +5,9 @@ namespace Controllers;
 class PeminjamanAdminController {
 
     public function index() {
-        authorize(isAdmin() || isRumahTangga());
+        // DIUBAH: Panggil authorize dengan array role
+        authorize(['admin', 'rumahtangga']);
+
         $peminjamanModel = new \Models\Peminjaman();
 
         view('admin/peminjaman/index', [
@@ -13,22 +15,13 @@ class PeminjamanAdminController {
         ]);
     }
 
-    // ... (di dalam class PeminjamanAdminController) ...
+    // Fungsi updateStatus yang sudah kita isi sebelumnya
+    public function updateStatus() {
+        authorize(['admin', 'rumahtangga']);
+        
+        $peminjamanModel = new \Models\Peminjaman();
+        $peminjamanModel->updateStatus($_POST['request_id'], $_POST['status']);
 
-public function updateStatus()
-{
-    // Otorisasi: cuma admin dan rumah tangga yang boleh ubah status
-    authorize(['admin', 'rumah_tangga']);
-
-    $id = $_POST['request_id'];
-    $status = $_POST['status'];
-
-    $peminjamanModel = new \App\Models\Peminjaman();
-    // Panggil method updateRequestStatus yang ada di model
-    $peminjamanModel->updateRequestStatus($id, $status);
-
-    // Redirect balik ke halaman manajemen peminjaman
-    header('Location: /RPL-FINALFIX/public/admin/peminjaman');
-    exit;
-}
+        redirect('admin/peminjaman');
+    }
 }

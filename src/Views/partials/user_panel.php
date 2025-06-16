@@ -1,29 +1,23 @@
-<div class="user-panel" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6; margin-bottom: 20px;">
+<?php if (is_logged_in()): ?>
+
+    <div class="user-panel">
     
-    <div>
-        Selamat datang, <b><?= htmlspecialchars(auth_user()['name']) ?></b>
-        <span style="background-color: #e2e3e5; color: #495057; padding: 2px 6px; border-radius: 4px; font-size: 12px; margin-left: 5px;">
-            Role: <?= ucfirst(htmlspecialchars(auth_user()['role'])) ?>
-        </span>
+        <div class="header-left">
+            <button id="sidebar-toggle" title="Toggle Sidebar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <div class="user-welcome">
+                Selamat datang, <b><?= htmlspecialchars(auth_user()['name']) ?></b>
+                <span class="role-badge">Role: <?= ucfirst(htmlspecialchars(auth_user()['role'])) ?></span>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <form action="<?= base_url('logout') ?>" method="POST" style="margin: 0;">
+                <button type="submit" class="btn-logout">Logout</button>
+            </form>
+        </div>
+
     </div>
 
-    <nav style="display: flex; align-items: center; gap: 20px;">
-        
-        <?php if (isAdmin() || isSekben()): ?>
-            <a href="/RPL-FINALFIX/public/keuangan">Keuangan</a>
-        <?php endif; ?>
-
-        <?php if (isAdmin() || isRumahTangga()): ?>
-            <a href="/RPL-FINALFIX/public/inventaris">Inventaris</a>
-            <a href="/RPL-FINALFIX/public/admin/peminjaman">Manajemen Peminjaman</a>
-        <?php endif; ?>
-
-        <?php if (isAdmin() || isSekben() || isRumahTangga()): ?>
-            <a href="/RPL-FINALFIX/public/jadwal">Jadwal Kajian</a>
-        <?php endif; ?>
-        
-        <form action="/RPL-FINALFIX/public/logout" method="POST" style="margin: 0;">
-            <button type="submit" style="background: none; border: 1px solid #dc3545; color: #dc3545; padding: 5px 10px; cursor: pointer; border-radius: 4px;">Logout</button>
-        </form>
-    </nav>
-</div>
+<?php endif; ?>

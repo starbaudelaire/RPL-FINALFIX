@@ -4,8 +4,10 @@ namespace Controllers;
 
 class JadwalController {
     
+    // Fungsi checkAuth diubah biar manggil authorize dengan cara yg benar
     private function checkAuth() {
-        authorize(isAdmin() || isSekben() || isRumahTangga());
+        // DIUBAH: Panggil authorize dengan array role
+        authorize(['admin', 'sekben', 'rumahtangga']);
     }
 
     public function index() {
@@ -31,44 +33,31 @@ class JadwalController {
         if ($jadwal) {
             view('jadwal/edit', ['jadwal' => $jadwal]);
         } else {
-            authorize(false, 404);
+            view('errors/403', ['message' => 'Data jadwal tidak ditemukan.']);
+            die();
         }
     }
 
-   // ... (di dalam class JadwalController) ...
+    // Fungsi store, update, destroy yg sudah kita isi sebelumnya
+    public function store() { 
+        $this->checkAuth();
+        $jadwalModel = new \Models\Jadwal();
+        $jadwalModel->save($_POST);
+        redirect('jadwal');
+    }
 
-public function store()
-{
-    authorize(['admin', 'sekben']);
-    
-    $jadwalModel = new \App\Models\Jadwal();
-    $jadwalModel->save($_POST);
+    public function update() { 
+        $this->checkAuth();
+        $jadwalModel = new \Models\Jadwal();
+        $jadwalModel->update($_POST);
+        redirect('jadwal');
+    }
 
-    header('Location: /RPL-FINALFIX/public/jadwal');
-    exit;
-}
-
-public function update()
-{
-    authorize(['admin', 'sekben']);
-
-    $id = $_POST['id'];
-    $jadwalModel = new \App\Models\Jadwal();
-    $jadwalModel->update($id, $_POST);
-
-    header('Location: /RPL-FINALFIX/public/jadwal');
-    exit;
-}
-
-public function destroy()
-{
-    authorize(['admin', 'sekben']);
-
-    $id = $_POST['id'];
-    $jadwalModel = new \App\Models\Jadwal();
-    $jadwalModel->delete($id);
-
-    header('Location: /RPL-FINALFIX/public/jadwal');
-    exit;
-}
+    public function destroy() { 
+        // Hanya admin yg boleh hapus
+        authorize(['admin']);
+        $jadwalModel = new \Models\Jadwal();
+        $jadwalModel->delete($_POST['id']);
+        redirect('jadwal');
+    }
 }
