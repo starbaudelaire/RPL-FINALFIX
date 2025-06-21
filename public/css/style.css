@@ -761,3 +761,149 @@ body {
     margin-bottom: 20px;
     text-align: left;
 }
+/* === HOMEPAGE CONTENT CARDS === */
+.page-section {
+    padding: 40px 0;
+}
+
+.section-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    border: 1px solid var(--border-color);
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: var(--dark-gray);
+}
+
+/* === HOMEPAGE INFO CARDS === */
+.info-card-section {
+    background-color: var(--light-gray);
+    padding: 40px 0;
+}
+
+.info-card {
+    background-color: white;
+    border-radius: 16px;
+    padding: 25px 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    border: 1px solid var(--border-color);
+    margin-bottom: 30px;
+}
+
+.info-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.info-card-header h2 {
+    margin: 0;
+    font-size: 22px;
+    color: var(--dark-gray);
+}
+
+.info-card-header a {
+    text-decoration: none;
+    color: var(--primary-green);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.info-card-body {
+    min-height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.info-card-body .placeholder-text {
+    font-size: 18px;
+    color: var(--text-color);
+    max-width: 400px;
+}
+
+/* Style untuk konten jika ada data */
+.info-card-body .data-summary {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.info-card-body .summary-item {
+    text-align: center;
+}
+.info-card-body .summary-item h3 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+.info-card-body .summary-item p {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* About/Sejarah Section */
+.about-section-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+/* === INFO CARDS - 3 COLUMN LAYOUT & FONT FIX === */
+.info-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tiga kolom sama lebar */
+    gap: 30px;
+    align-items: stretch; /* Bikin tinggi kartu sama rata */
+}
+
+/* Bikin kartu di dalam grid jadi tinggi penuh */
+.info-card-grid .info-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.info-card-grid .info-card .info-card-body {
+    flex-grow: 1; /* Biar kontennya ngisi sisa ruang */
+}
+
+
+/* Pengecilan Font di dalam Info Card */
+.info-card-header h2 {
+    font-size: 18px; /* Dikecilin */
+}
+.info-card-header a {
+    font-size: 13px; /* Dikecilin */
+}
+.info-card-body {
+    min-height: 120px; /* Tingginya dikurangin dikit */
+}
+.info-card-body .placeholder-text {
+    font-size: 14px; /* Dikecilin */
+}
+.info-card-body .summary-item h3 {
+    font-size: 14px; /* Dikecilin */
+}
+.info-card-body .summary-item p {
+    font-size: 20px; /* Dikecilin */
+}
+
+/* Bikin jadi 1 kolom kalo layarnya kecil (Responsive) */
+@media (max-width: 992px) {
+    .info-card-grid {
+        grid-template-columns: 1fr;
+    }
+}
