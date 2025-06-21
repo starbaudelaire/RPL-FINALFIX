@@ -1,13 +1,27 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
-class User extends \Core\Model {
+use Core\Model;
 
-    // Cari user berdasarkan alamat email
-    public function findByEmail($email) {
-        $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
+class User extends Model
+{
+    protected $table = 'users';
+
+    public function findByEmail($email)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE email = ?");
         $stmt->execute([$email]);
+        return $stmt->fetch();
+    }
+
+    /**
+     * FUNGSI BARU: Untuk mencari user berdasarkan username.
+     */
+    public function findByUsername($username)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE username = ?");
+        $stmt->execute([$username]);
         return $stmt->fetch();
     }
 }

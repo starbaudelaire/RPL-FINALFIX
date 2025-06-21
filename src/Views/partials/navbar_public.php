@@ -1,13 +1,28 @@
-<nav style="display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-    <div class="logo" style="font-weight: bold; font-size: 1.5em;">
-        Masjid<span style="color: #28a745;">Ku</span>
+<header class="site-header">
+    <div class="container">
+        <div class="header-top">
+            <div style="width: 80px;"></div> 
+
+            <div class="header-brand">
+                <a href="<?= base_url('/') ?>" style="text-decoration: none;">
+                    <img src="<?= base_url('assets/Nuruttaqwa1.png') ?>" alt="Logo Masjid Nuruttaqwa">
+                    <h1>Masjid Nuruttaqwa</h1>
+                </a>
+            </div>
+            
+            <div class="header-action">
+                <a href="<?= base_url('login') ?>" class="text-login">Login</a>
+            </div>
+        </div>
     </div>
-    <div class="menu" style="display: flex; gap: 25px;">
-        <a href="#keuangan">Laporan Keuangan</a>
-        <a href="#jadwal">Jadwal Kajian</a>
-        <a href="#peminjaman">Peminjaman Barang</a>
-    </div>
-    <div>
-        <a href="/RPL-FINALFIX/public/login" style="background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">Login Pengurus</a>
-    </div>
-</nav>
+    <nav class="header-nav">
+        <div class="container">
+             <div class="nav-links">
+                <a href="<?= base_url('/') ?>">Beranda</a>
+                <a href="<?= base_url('laporan-keuangan') ?>">Keuangan</a>
+                <a href="<?= base_url('jadwal-kegiatan') ?>">Kegiatan</a>
+                <a href="<?= base_url('pinjam') ?>">Peminjaman</a>
+            </div>
+        </div>
+    </nav>
+</header>

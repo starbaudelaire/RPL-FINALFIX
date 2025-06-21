@@ -28,7 +28,10 @@
             <label for="tanggal_pengadaan">Tanggal Pengadaan</label>
             <input type="date" id="tanggal_pengadaan" name="tanggal_pengadaan" required>
         </div>
-
+        <div class="form-group">
+            <label for="foto_url">URL Gambar Barang (Opsional)</label>
+            <input type="url" id="foto_url" name="foto_url" placeholder="https://.../gambar.jpg">
+        </div>
         <div class="form-group">
             <label for="keterangan">Keterangan (Opsional)</label>
             <textarea id="keterangan" name="keterangan" rows="4"></textarea>

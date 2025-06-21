@@ -1,48 +1,94 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Form Peminjaman Barang Masjid</title>
-    <style> form { max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, select { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-        button { padding: 10px 15px; background-color: #28a745; color: white; border: none; cursor: pointer; border-radius: 4px; }
-        button:hover { background-color: #218838; }
-        .nav-link { display: inline-block; margin-bottom: 20px; } </style>
-</head>
-<body>
-    <h1>Form Peminjaman Barang</h1>
-<form action="/RPL-FINALFIX/public/pinjam" method="POST">        <fieldset>
-            <legend>Data Peminjam</legend>
-            <div><label>Nama Lengkap:</label><input type="text" name="nama_peminjam" required></div>
-            <div><label>Instansi/Organisasi:</label><input type="text" name="instansi"></div>
-           <div style="margin-top: 10px;">
-        <label>Nomor WA Aktif:</label>
-        <input type="tel" name="wa_peminjam" placeholder="Contoh: 081234567890" required>
-    </div>
-            <div><label>Keperluan:</label><textarea name="keperluan" required></textarea></div>
-            <div><label>Link Surat Pengajuan (Google Drive):</label><input type="url" name="link_surat" placeholder="https://docs.google.com/..."></div>
-        </fieldset>
+<div class="container" style="padding-top: 40px; padding-bottom: 40px;">
+    
+    <h2 class="section-title" style="margin-top: 0; margin-bottom: 40px;">Formulir Peminjaman Inventaris</h2>
 
-        <fieldset>
-            <legend>Detail Peminjaman</legend>
-            <div><label>Tanggal Pinjam:</label><input type="date" name="tanggal_pinjam" required></div>
-            <div><label>Tanggal Kembali:</label><input type="date" name="tanggal_kembali" required></div>
-        </fieldset>
+    <form action="<?= base_url('pinjam') ?>" method="POST">
 
-        <fieldset>
-            <legend>Pilih Barang (Bisa lebih dari satu)</legend>
-            <?php foreach ($semua_barang as $barang): ?>
-                <div class="barang-item" style="display: flex; align-items: center; margin-bottom: 10px;">
-                    <input type="checkbox" name="barang_ids[]" value="<?= $barang['id'] ?>" id="barang_<?= $barang['id'] ?>">
-                    <img src="<?= htmlspecialchars($barang['foto_url'] ?: 'https://via.placeholder.com/50') ?>" alt="<?= htmlspecialchars($barang['nama_barang']) ?>" style="width: 50px; height: 50px; object-fit: cover; margin-left: 10px; margin-right: 10px;">
-                    <label for="barang_<?= $barang['id'] ?>"><?= htmlspecialchars($barang['nama_barang']) ?> (Stok: <?= $barang['jumlah'] ?>)</label>
+        <div class="form-steps-grid">
+
+            <div class="step-card">
+                <h3 class="step-card-title">Langkah 1: Informasi Peminjam</h3>
+                <div class="form-group">
+                    <label for="nama_peminjam">Nama Lengkap</label>
+                    <input type="text" id="nama_peminjam" name="nama_peminjam" required>
                 </div>
-            <?php endforeach; ?>
-        </fieldset>
-        
-        <button type="submit">Kirim Permintaan</button>
+                <div class="form-group">
+                    <label for="instansi">Instansi / Organisasi</label>
+                    <input type="text" id="instansi" name="instansi" required>
+                </div>
+                <div class="form-group">
+                    <label for="wa_peminjam">Nomor WhatsApp Aktif</label>
+                    <input type="tel" id="wa_peminjam" name="wa_peminjam" placeholder="Contoh: 08123456789" required>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3 class="step-card-title">Langkah 2: Detail Peminjaman</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="tanggal_pinjam">Tanggal Peminjaman</label>
+                        <input type="date" id="tanggal_pinjam" name="tanggal_pinjam" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggal_kembali">Tanggal Pengembalian</label>
+                        <input type="date" id="tanggal_kembali" name="tanggal_kembali" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="keperluan">Keperluan Peminjaman</label>
+                    <textarea id="keperluan" name="keperluan" rows="3" required></textarea>
+                </div>
+                 <div class="form-group">
+                    <label for="link_surat">Surat Resmi Pengajuan</label>
+                    <input type="url" id="link_surat" name="link_surat" placeholder="https://docs.google.com/...">
+                </div>
+            </div>
+
+        </div> <div class="step-card">
+             <h3 class="step-card-title">Langkah 3: Pilih Barang</h3>
+            <div class="item-selection-grid">
+                <?php if (!empty($semua_barang)): ?>
+                    <?php foreach($semua_barang as $barang): ?>
+                        <label class="item-card" for="barang_<?= $barang['id'] ?>">
+                            <img src="<?= htmlspecialchars($barang['foto_url'] ?? 'https://via.placeholder.com/300x200?text=No+Image') ?>" alt="<?= htmlspecialchars($barang['nama_barang']) ?>">
+                            <div class="item-card-body">
+                                <span><?= htmlspecialchars($barang['nama_barang']) ?></span>
+                                <input type="checkbox" name="barang_ids[]" value="<?= $barang['id'] ?>" id="barang_<?= $barang['id'] ?>">
+                            </div>
+                        </label>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                     <p>Saat ini tidak ada barang yang tersedia untuk dipinjam.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="form-actions-center">
+            <button type="submit" class="btn">Ajukan Peminjaman</button>
+        </div>
     </form>
-</body>
-</html>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.item-card').forEach(card => {
+            const checkbox = card.querySelector('input[type="checkbox"]');
+            
+            function updateCardStyle() {
+                if (checkbox.checked) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
+            }
+            updateCardStyle();
+
+            card.addEventListener('click', function(e) {
+                if (e.target.type !== 'checkbox') {
+                    checkbox.checked = !checkbox.checked;
+                }
+                updateCardStyle();
+            });
+        });
+    });
+</script>

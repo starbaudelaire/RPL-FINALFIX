@@ -2,58 +2,58 @@
 
 namespace Models;
 
-class Inventaris extends \Core\Model {
+use Core\Model;
 
-    // Mengambil semua data inventaris
-    public function findAll() {
-        $stmt = $this->db->query("SELECT * FROM inventaris ORDER BY nama_barang ASC");
-        return $stmt->fetchAll();
+class Inventaris extends Model
+{
+    protected $table = 'inventaris';
+
+    public function findAll()
+    {
+        return $this->db->query("SELECT * FROM {$this->table} ORDER BY nama_barang ASC")->fetchAll();
     }
 
-    // Mengambil satu data inventaris berdasarkan ID
-    public function findById($id) {
-        $stmt = $this->db->prepare("SELECT * FROM inventaris WHERE id = ?");
+    public function findById($id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE id = ?");
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
 
-    // Menyimpan data inventaris baru
-    public function save($data) {
-        $query = "INSERT INTO inventaris (nama_barang, jumlah, kondisi, keterangan, tanggal_pengadaan) VALUES (:nama_barang, :jumlah, :kondisi, :keterangan, :tanggal_pengadaan)";
-        $stmt = $this->db->prepare($query);
+    public function save($data)
+    {
+        // DIUBAH: Ditambahin foto_url
+        $sql = "INSERT INTO {$this->table} (nama_barang, jumlah, kondisi, keterangan, tanggal_pengadaan, foto_url) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
         return $stmt->execute([
-            ':nama_barang' => $data['nama_barang'],
-            ':jumlah' => $data['jumlah'],
-            ':kondisi' => $data['kondisi'],
-            ':keterangan' => $data['keterangan'],
-            ':tanggal_pengadaan' => $data['tanggal_pengadaan'],
+            $data['nama_barang'],
+            $data['jumlah'],
+            $data['kondisi'],
+            $data['keterangan'],
+            $data['tanggal_pengadaan'],
+            $data['foto_url'] ?? null
         ]);
     }
 
-    // Mengupdate data inventaris
-    public function update($data) {
-        $query = "UPDATE inventaris 
-                  SET nama_barang = :nama_barang, 
-                      jumlah = :jumlah, 
-                      kondisi = :kondisi, 
-                      keterangan = :keterangan,
-                      tanggal_pengadaan = :tanggal_pengadaan
-                  WHERE id = :id";
-        $stmt = $this->db->prepare($query);
+    public function update($data)
+    {
+        // DIUBAH: Ditambahin foto_url
+        $sql = "UPDATE {$this->table} SET nama_barang = ?, jumlah = ?, kondisi = ?, keterangan = ?, tanggal_pengadaan = ?, foto_url = ? WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
         return $stmt->execute([
-            ':id' => $data['id'],
-            ':nama_barang' => $data['nama_barang'],
-            ':jumlah' => $data['jumlah'],
-            ':kondisi' => $data['kondisi'],
-            ':keterangan' => $data['keterangan'],
-            ':tanggal_pengadaan' => $data['tanggal_pengadaan'],
+            $data['nama_barang'],
+            $data['jumlah'],
+            $data['kondisi'],
+            $data['keterangan'],
+            $data['tanggal_pengadaan'],
+            $data['foto_url'] ?? null,
+            $data['id']
         ]);
     }
 
-    // Menghapus data inventaris
-    public function delete($id) {
-        $query = "DELETE FROM inventaris WHERE id = ?";
-        $stmt = $this->db->prepare($query);
+    public function delete($id)
+    {
+        $stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE id = ?");
         return $stmt->execute([$id]);
     }
 }

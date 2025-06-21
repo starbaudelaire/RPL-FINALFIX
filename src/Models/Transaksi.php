@@ -116,4 +116,21 @@ public function getPublicSummary($limit = 10) {
     
     return $stmt->fetchAll();
 }
+/**
+     * Mengambil semua data transaksi berdasarkan bulan dan tahun.
+     */
+    public function findByMonthYear($month, $year) {
+        try {
+            // Query untuk memfilter berdasarkan bulan (MONTH) dan tahun (YEAR) dari kolom tanggal
+            $query = "SELECT * FROM transaksi WHERE MONTH(tanggal) = :month AND YEAR(tanggal) = :year ORDER BY tanggal ASC, id ASC";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([':month' => $month, ':year' => $year]);
+            
+            return $stmt->fetchAll();
+
+        } catch (\PDOException $e) {
+            die("Query Error di findByMonthYear(): " . $e->getMessage());
+        }
+    }
 }

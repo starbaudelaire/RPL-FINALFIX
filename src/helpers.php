@@ -24,7 +24,12 @@ function view($viewName, $data = []) {
 
 function public_view($viewName, $data = []) {
     extract($data);
+    // Ini proses magic buat nampung konten halaman...
+    ob_start();
     require_once BASE_PATH . "/src/Views/{$viewName}.php";
+    $content = ob_get_clean();
+    // ...lalu dibungkus pake layout publik yang baru.
+    require_once BASE_PATH . '/src/Views/layouts/public.php';
 }
 
 // Fungsi-fungsi otentikasi (is_logged_in, auth_user, roles) juga udah bener.

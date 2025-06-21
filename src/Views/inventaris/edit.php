@@ -46,6 +46,10 @@
             <input type="date" id="tanggal_pengadaan" name="tanggal_pengadaan" value="<?= htmlspecialchars($item['tanggal_pengadaan']) ?>">
         </div>
         <div class="form-group">
+            <label for="foto_url">URL Gambar Barang (Opsional)</label>
+            <input type="url" id="foto_url" name="foto_url" value="<?= htmlspecialchars($item['foto_url'] ?? '') ?>" placeholder="https://.../gambar.jpg">
+        </div>
+        <div class="form-group">
             <label for="keterangan">Keterangan</label>
             <textarea id="keterangan" name="keterangan"><?= htmlspecialchars($item['keterangan']) ?></textarea>
         </div>

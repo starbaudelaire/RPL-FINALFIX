@@ -1,49 +1,46 @@
 <?php
 
-namespace Controllers;
+namespace App\Controllers;
 
-use Models\User;
+use App\Models\User;
 
-class AuthController {
-
-    /**
-     * Menampilkan halaman form login.
-     */
-    public function showLoginForm() {
-        // DIUBAH: Gunakan 'public_view' untuk halaman publik seperti login,
-        // supaya tidak dibungkus dengan layout admin.
+class AuthController
+{
+    public function showLoginForm()
+    {
+        if (is_logged_in()) {
+            redirect('dashboard');
+        }
         public_view('auth/login');
     }
 
-    /**
-     * Memproses data login dari form.
-     */
-    public function login() {
-        $email = $_POST['email'];
+    public function login()
+    {
+        // DIUBAH: Sekarang nerima 'username', bukan 'email'
+        $username = $_POST['username'];
         $password = $_POST['password'];
 
-        $userModel = new \Models\User();
-        $user = $userModel->findByEmail($email);
+        $userModel = new User();
+        // DIUBAH: Panggil fungsi findByUsername, bukan findByEmail
+        $user = $userModel->findByUsername($username);
 
         if ($user && password_verify($password, $user['password'])) {
+            session_regenerate_id(true);
             $_SESSION['user'] = [
                 'id' => $user['id'],
-                'name' => $user['name'],
+                'name' => $user['nama_lengkap'], // Disesuaikan dengan kolom di DB
+                'username' => $user['username'],
                 'role' => $user['role']
             ];
-            
-            // Redirect ke dashboard setelah login
             redirect('dashboard');
         } else {
-            // Nanti bisa tambahin flash message error di sini
+            $_SESSION['error_message'] = 'Username atau password salah.';
             redirect('login');
         }
     }
 
-    /**
-     * Proses logout user.
-     */
-    public function logout() {
+    public function logout()
+    {
         session_destroy();
         redirect('login');
     }

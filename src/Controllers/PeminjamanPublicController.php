@@ -2,32 +2,56 @@
 
 namespace Controllers;
 
+// Kita panggil class yang mau dipake di sini biar rapi
+use Models\Inventaris;
+use Models\Peminjaman;
+
 class PeminjamanPublicController {
 
+    /**
+     * Menampilkan form peminjaman publik.
+     */
     public function create() {
-        $inventarisModel = new \Models\Inventaris();
+        $inventarisModel = new Inventaris();
         
-        view('peminjaman/create_public', [
+        // DIUBAH: Pake 'public_view' biar gak kebawa layout admin
+        public_view('peminjaman/create_public', [
             'semua_barang' => $inventarisModel->findAll()
         ]);
     }
 
+    /**
+     * Menampilkan halaman sukses setelah submit form.
+     */
     public function success() {
-        view('peminjaman/sukses');
+        // DIUBAH: Pake 'public_view' juga di sini
+        public_view('peminjaman/sukses');
     }
 
-   // ... (di dalam class PeminjamanPublicController) ...
+    /**
+     * Memproses data dari form peminjaman.
+     */
+    public function store() {
+        // DIUBAH: Panggil class Peminjaman dengan benar (tanpa 'App')
+        $peminjamanModel = new Peminjaman();
 
-public function store()
-{
-    // Gak perlu authorize, karena ini halaman publik
-    
-    $peminjamanModel = new \App\Models\Peminjaman();
-    // Panggil method createRequest yang udah lu buat di model
-    $peminjamanModel->createRequest($_POST);
+        // Ambil ID barang-barang yang dipilih dari form
+        $itemIds = $_POST['barang_ids'] ?? [];
+        
+        // Validasi simpel: kalo gak ada barang yg dipilih, balikin ke form
+        if (empty($itemIds)) {
+            // Bisa ditambahin pesan error nanti
+            redirect('pinjam');
+        }
 
-    // Redirect ke halaman sukses
-    header('Location: /RPL-FINALFIX/public/pinjam/sukses');
-    exit;
-}
+        // DIUBAH: Kirim data form dan ID barang ke model
+        $isSuccess = $peminjamanModel->createRequest($_POST, $itemIds);
+
+        if ($isSuccess) {
+            redirect('pinjam/sukses');
+        } else {
+            // Nanti bisa ditambahin pesan error kalo gagal simpan
+            redirect('pinjam');
+        }
+    }
 }

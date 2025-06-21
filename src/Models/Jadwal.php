@@ -91,4 +91,21 @@ class Jadwal extends Model
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }
+    /**
+     * Mengambil semua data jadwal berdasarkan bulan dan tahun.
+     */
+    public function findByMonthYear($month, $year) {
+        try {
+            // Query untuk memfilter berdasarkan bulan (MONTH) dan tahun (YEAR) dari kolom waktu_kajian
+            $query = "SELECT * FROM {$this->table} WHERE MONTH(waktu_kajian) = :month AND YEAR(waktu_kajian) = :year ORDER BY waktu_kajian ASC, id ASC";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([':month' => $month, ':year' => $year]);
+            
+            return $stmt->fetchAll();
+
+        } catch (\PDOException $e) {
+            die("Query Error di Jadwal->findByMonthYear(): " . $e->getMessage());
+        }
+    }
 }

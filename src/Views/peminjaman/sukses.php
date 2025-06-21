@@ -1,23 +1,15 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Permintaan Terkirim</title>
-    <style>
-        body { font-family: sans-serif; background-color: #f4f4f4; color: #333; text-align: center; padding-top: 50px; }
-        .container { max-width: 600px; margin: auto; background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h1 { font-size: 32px; color: #28a745; }
-        p { font-size: 18px; line-height: 1.6; }
-        strong { color: #0056b3; }
-        .back-link { display: inline-block; margin-top: 20px; font-size: 16px; color: #007bff; text-decoration: none; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>✅ Permintaan Terkirim!</h1>
-        <p>Terima kasih. Permintaan peminjaman Anda telah berhasil dikirim dan akan segera direview oleh pengurus (Bagian Rumah Tangga).</p>
-        <p>Anda akan dihubungi lebih lanjut untuk konfirmasi oleh pengurus kami melalui WhatsApp di nomor: <strong>+62 895-3249-57316</strong>.</p>
-        <a href="/RPL-FINALFIX/public/" class="back-link">Kembali ke Halaman Utama</a>
+<div class="container" style="padding-top: 40px; padding-bottom: 40px;">
+    <div class="success-card">
+        
+        <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+
+        <h1>Pengajuan Peminjaman Terkirim!</h1>
+        <p>Terima kasih. Pengajuan peminjaman Anda telah kami terima dan akan segera diproses oleh pengurus.</p>
+        <p>Informasi selanjutnya akan kami sampaikan melalui nomor WhatsApp yang Anda cantumkan.</p>
+        
+        <a href="<?= base_url('/') ?>" class="btn">Kembali ke Beranda</a>
+
     </div>
-</body>
-</html>
+</div>
