@@ -22,7 +22,6 @@ class Inventaris extends Model
 
     public function save($data)
     {
-        // DIUBAH: Ditambahin foto_url
         $sql = "INSERT INTO {$this->table} (nama_barang, jumlah, kondisi, keterangan, tanggal_pengadaan, foto_url) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
@@ -35,9 +34,12 @@ class Inventaris extends Model
         ]);
     }
 
-    public function update($data)
+    /**
+     * DIUBAH: Fungsi update sekarang menerima 2 argumen ($id, $data)
+     * Ini akan memperbaiki fatal error.
+     */
+    public function update($id, $data)
     {
-        // DIUBAH: Ditambahin foto_url
         $sql = "UPDATE {$this->table} SET nama_barang = ?, jumlah = ?, kondisi = ?, keterangan = ?, tanggal_pengadaan = ?, foto_url = ? WHERE id = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
@@ -47,7 +49,7 @@ class Inventaris extends Model
             $data['keterangan'],
             $data['tanggal_pengadaan'],
             $data['foto_url'] ?? null,
-            $data['id']
+            $id // ID dipakai di paling akhir untuk WHERE clause
         ]);
     }
 
