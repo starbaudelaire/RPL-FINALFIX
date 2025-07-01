@@ -9,12 +9,10 @@
             <label for="nama_barang">Nama Barang</label>
             <input type="text" id="nama_barang" name="nama_barang" required>
         </div>
-
         <div class="form-group">
             <label for="jumlah">Jumlah</label>
             <input type="number" id="jumlah" name="jumlah" required>
         </div>
-
         <div class="form-group">
             <label for="kondisi">Kondisi</label>
             <select id="kondisi" name="kondisi" required>
@@ -23,7 +21,6 @@
                 <option value="Rusak Berat">Rusak Berat</option>
             </select>
         </div>
-
         <div class="form-group">
             <label for="tanggal_pengadaan">Tanggal Pengadaan</label>
             <input type="date" id="tanggal_pengadaan" name="tanggal_pengadaan" required>
@@ -33,88 +30,15 @@
             <input type="url" id="foto_url" name="foto_url" placeholder="https://.../gambar.jpg">
         </div>
         <div class="form-group">
-            <label for="keterangan">Keterangan (Opsional)</label>
-            <textarea id="keterangan" name="keterangan" rows="4"></textarea>
+            <label for="keterangan">Keterangan</label>
+            <textarea id="keterangan" name="keterangan" rows="3"></textarea>
         </div>
-        
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Simpan Inventaris</button>
+            <button type="submit" class="btn btn-success">Simpan Inventaris</button>
         </div>
     </form>
 </div>
 
 <style>
-.form-wrapper {
-    padding: 20px;
-}
-.form-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-.form-header h1 {
-    margin: 0;
-    font-size: 24px;
-}
-.form-card {
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-.form-group {
-    margin-bottom: 20px;
-}
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box; /* Penting biar padding gak ngerusak layout */
-    font-size: 16px;
-    transition: border-color 0.2s;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #007bff;
-}
-.form-actions {
-    text-align: right;
-    margin-top: 30px;
-}
-.btn {
-    text-decoration: none;
-    padding: 12px 25px;
-    border-radius: 5px;
-    color: white;
-    display: inline-block;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-}
-.btn-primary {
-    background-color: #28a745; /* Samain kayak tombol tambah */
-}
-.btn-primary:hover {
-    background-color: #218838;
-}
-.btn-back {
-    background-color: #6c757d;
-    padding: 10px 20px;
-    font-size: 14px;
-}
-.btn-back:hover {
-    background-color: #5a6268;
-}
+.form-wrapper{padding:20px}.form-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.form-header h1{margin:0;font-size:24px}.form-card{background-color:white;padding:30px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,.1)}.form-group{margin-bottom:20px}.form-group label{display:block;margin-bottom:8px;font-weight:bold}.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box;font-size:16px}.form-actions{text-align:right;margin-top:30px}.btn{text-decoration:none;padding:12px 25px;border-radius:5px;color:white;display:inline-block;border:none;cursor:pointer;font-size:16px;font-weight:bold}.btn-success{background-color:#28a745}.btn-back{background-color:#6c757d;padding:10px 20px;font-size:14px}
 </style>

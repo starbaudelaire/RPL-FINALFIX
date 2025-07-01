@@ -1,28 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Inventaris</title>
-    <link rel="stylesheet" href="/RPL-FINALFIX/public/style.css">
-    <style>
-        /* Bisa copy-paste style dari views/keuangan/create.php */
-        form { max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, select, textarea { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 4px; }
-        button:hover { background-color: #0056b3; }
-        .nav-link { display: inline-block; margin-bottom: 20px; }
-    </style>
-</head>
-<body>
-    <div style="text-align: center;">
+<div class="form-wrapper">
+    <div class="form-header">
         <h1>Form Edit Inventaris</h1>
-        <a href="/RPL-FINALFIX/public/inventaris" class="nav-link">Kembali ke Daftar Inventaris</a>
+        <a href="<?= base_url('inventaris') ?>" class="btn btn-back">Kembali ke Daftar</a>
     </div>
 
-    <form action="/RPL-FINALFIX/public/inventaris/update" method="POST">
-        
+    <form class="form-card" action="<?= base_url('inventaris/update') ?>" method="POST">
         <input type="hidden" name="id" value="<?= htmlspecialchars($item['id']) ?>">
 
         <div class="form-group">
@@ -51,9 +33,10 @@
         </div>
         <div class="form-group">
             <label for="keterangan">Keterangan</label>
-            <textarea id="keterangan" name="keterangan"><?= htmlspecialchars($item['keterangan']) ?></textarea>
+            <textarea id="keterangan" name="keterangan" rows="3"><?= htmlspecialchars($item['keterangan']) ?></textarea>
         </div>
-        <button type="submit">Update Inventaris</button>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Update Inventaris</button>
+        </div>
     </form>
-</body>
-</html>
+</div>

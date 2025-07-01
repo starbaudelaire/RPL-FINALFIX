@@ -12,7 +12,7 @@ class InventarisController {
     public function index() {
         // Otorisasi: Hanya admin dan rumah_tangga yang boleh akses.
         // Ini cara penulisan yang benar.
-        authorize(['admin', 'rumah_tangga']);
+        authorize(['admin', 'rumahtangga']);
 
         $inventarisModel = new \Models\Inventaris();
 
@@ -25,7 +25,7 @@ class InventarisController {
      * Menampilkan form untuk membuat data inventaris baru.
      */
     public function create() {
-        authorize(['admin', 'rumah_tangga']);
+        authorize(['admin', 'rumahtangga']);
         view('inventaris/create');
     }
 
@@ -33,7 +33,7 @@ class InventarisController {
      * Menampilkan form untuk mengedit data inventaris.
      */
     public function edit() {
-        authorize(['admin', 'rumah_tangga']);
+        authorize(['admin', 'rumahtangga']);
         $id = $_GET['id'];
         $inventarisModel = new \Models\Inventaris();
         $item = $inventarisModel->findById($id);
@@ -52,7 +52,7 @@ class InventarisController {
      * Menyimpan data inventaris baru dari form.
      */
     public function store() {
-        authorize(['admin', 'rumah_tangga']);
+        authorize(['admin', 'rumahtangga']);
 
         $inventarisModel = new \Models\Inventaris();
         $inventarisModel->save($_POST);
@@ -66,7 +66,7 @@ class InventarisController {
      * Mengupdate data inventaris dari form edit.
      */
     public function update() {
-        authorize(['admin', 'rumah_tangga']);
+        authorize(['admin', 'rumahtangga']);
         
         $id = $_POST['id'];
         $inventarisModel = new \Models\Inventaris();
@@ -81,7 +81,7 @@ class InventarisController {
      * Menghapus data inventaris.
      */
     public function destroy() {
-        authorize(['admin', 'rumah_tangga']);
+        authorize(['admin', 'rumahtangga']);
         
         $id = $_POST['id'];
         $inventarisModel = new \Models\Inventaris();

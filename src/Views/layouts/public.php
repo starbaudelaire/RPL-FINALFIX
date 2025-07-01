@@ -23,6 +23,29 @@
             <p>© <?= date('Y') ?> Masjid Nuruttaqwa. All Rights Reserved.</p>
         </div>
     </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sliderWrapper = document.querySelector('.slider-wrapper');
+        const slides = document.querySelectorAll('.video-slide');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        let currentIndex = 0;
+        const totalSlides = slides.length;
 
+        function goToSlide(index) {
+            sliderWrapper.style.transform = 'translateX(' + (-index * 100) + '%)';
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            goToSlide(currentIndex);
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            goToSlide(currentIndex);
+        });
+    });
+</script>
 </body>
 </html>

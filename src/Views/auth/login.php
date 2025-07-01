@@ -11,7 +11,7 @@
 
         <form action="<?= base_url('login') ?>" method="POST">
             <div class="form-group">
-                <label for="username">Username</label>
+                <label for="username">Username/E-mail</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="form-group">

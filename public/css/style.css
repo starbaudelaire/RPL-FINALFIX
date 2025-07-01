@@ -785,7 +785,6 @@ body {
 
 /* === HOMEPAGE INFO CARDS === */
 .info-card-section {
-    background-color: var(--light-gray);
     padding: 40px 0;
 }
 
@@ -907,3 +906,74 @@ body {
         grid-template-columns: 1fr;
     }
 }
+/* === KONTEN DAKWAH (VIDEO CAROUSEL) - THE REAL FINAL FIX === */
+.slider-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.video-slide {
+    flex: 0 0 100%;
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+.video-thumbnail {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    display: block;
+    background-color: #e0e0e0;
+}
+.video-thumbnail img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+.video-thumbnail .play-icon {
+    /* DIUBAH TOTAL: Ukuran dipaksa pake !important */
+    width: 50px !important; 
+    height: 50px !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    transition: all 0.3s ease !important;
+}
+.video-thumbnail:hover .play-icon {
+    background-color: rgba(255, 0, 0, 0.8) !important;
+    transform: translate(-50%, -50%) scale(1.1) !important;
+}
+.video-thumbnail .play-icon svg {
+    /* DIUBAH TOTAL: Ukuran ikon juga dipaksa */
+    width: 24px !important;
+    height: 24px !important;
+    fill: white !important;
+}
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    z-index: 20;
+}
+.prev-btn { left: 25px; }
+.next-btn { right: 25px; }
