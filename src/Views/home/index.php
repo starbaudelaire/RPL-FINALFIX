@@ -1,22 +1,33 @@
 <header class="hero-section">
     <div class="container">
-        <p class="greeting">Assalamu'alaikum</p>
-        <h1 class="mosque-name">MASJID NURUTTAQWA</h1>
+        <div class="hero-card">
+            <div class="hero-text">
+                <p class="greeting">Assalamu'alaikum</p>
+                <h1 class="mosque-name">Masjid Nurul Taqwa</h1>
+                <p class="mosque-address">Jl. Pintu Selatan UPN, Ngropoh, Condongcatur, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281</p>
+            </div>
+            <div class="hero-map">
+                <a href="https://maps.app.goo.gl/omrdJvLGdRAPnmdf9" target="_blank" title="Lihat di Google Maps">
+                    <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps">
+                </a>
+            </div>
+        </div>
     </div>
 </header>
 
 <div class="container page-section">
+
     <div class="section-card">
         <h2 class="section-title">Konten Dakwah Pilihan</h2>
         <div class="slider-container">
             <div class="slider-wrapper">
                 <?php
-                // Daftar ID video YouTube
+                // Daftar ID video dari link YouTube
                 $video_ids = ['izYUMrsvVDQ', 'sX-kePnlgy4', 'vhrdYTP4AiY'];
                 foreach ($video_ids as $id):
                 ?>
                     <div class="video-slide">
-                        <a href="https://www.youtube.com/watch?v=WLr1VdGNV9U<?= $id ?>" target="_blank" class="video-thumbnail">
+                        <a href="https://www.youtube.com/watch?v=r5yQgkgBlqc<?= $id ?>" target="_blank" class="video-thumbnail">
                             <img src="https://img.youtube.com/vi/<?= $id ?>/hqdefault.jpg" alt="Video Dakwah">
                             <div class="play-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
@@ -29,6 +40,7 @@
             <button class="slider-btn next-btn">❯</button>
         </div>
     </div>
+
 </div>
 
 <section class="info-card-section">
@@ -97,13 +109,19 @@
 </section>
 
 <div class="container page-section">
-    <div class="section-card">
-        <h2 class="section-title">Sekilas Sejarah Masjid Nuruttaqwa</h2>
-        <div class="about-section-content">
+    <div class="section-card about-card">
+        
+        <div class="about-text">
+            <h2 class="section-title">Tentang Website</h2>
             <p>
-                Website Masjid Nuruttaqwa merupakan sebuah platform yang dirancang untuk memberikan sistem informasi keuangan kas masjid yang transparan dan efisien. Website ini bertujuan untuk memudahkan pengelolaan dan pelaporan keuangan masjid, sehingga setiap transaksi dapat dicatat dengan baik dan dapat diakses oleh pengurus masjid dan jamaah.
+                Website Masjid Nurul Taqwa merupakan sebuah platform yang dirancang untuk memberikan sistem informasi keuangan kas masjid yang transparan dan efisien. Website ini bertujuan untuk memudahkan pengelolaan dan pelaporan keuangan masjid, sehingga setiap transaksi dapat dicatat dengan baik dan dapat diakses oleh pengurus masjid dan jamaah.
             </p>
         </div>
+
+        <div class="about-image">
+            <img src="<?= base_url('assets/masjidnurultaqwa.png') ?>" alt="Foto Masjid Nurul Taqwa">
+        </div>
+
     </div>
 </div>
 
@@ -111,19 +129,30 @@
 document.addEventListener('DOMContentLoaded', function () {
     const sliderWrapper = document.querySelector('.slider-wrapper');
     if (!sliderWrapper) return;
+    
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
     let currentIndex = 0;
     const slides = document.querySelectorAll('.video-slide');
     const totalSlides = slides.length;
+
     function goToSlide(index) {
         if (totalSlides === 0) return;
-        if (index < 0) { index = totalSlides - 1; }
-        else if (index >= totalSlides) { index = 0; }
+        if (index < 0) {
+            index = totalSlides - 1;
+        } else if (index >= totalSlides) {
+            index = 0;
+        }
         sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
         currentIndex = index;
     }
-    prevBtn.addEventListener('click', () => { goToSlide(currentIndex - 1); });
-    nextBtn.addEventListener('click', () => { goToSlide(currentIndex + 1); });
+
+    prevBtn.addEventListener('click', () => {
+        goToSlide(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+        goToSlide(currentIndex + 1);
+    });
 });
 </script>

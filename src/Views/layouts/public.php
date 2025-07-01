@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title><?= $title ?? 'Masjid Nuruttaqwa' ?></title>
+    <title><?= $title ?? 'Masjid Nurul Taqwa' ?></title>
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,7 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>© <?= date('Y') ?> Masjid Nuruttaqwa. All Rights Reserved.</p>
+            <p>© <?= date('Y') ?> Masjid Nurul Taqwa. All Rights Reserved.</p>
         </div>
     </footer>
     <script>

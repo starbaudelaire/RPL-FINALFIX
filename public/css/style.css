@@ -73,28 +73,56 @@ body {
     color: var(--primary-green) !important;
 }
 
-/* === HERO SECTION (Pastikan background-nya putih) === */
+/* === HERO SECTION (CARD LAYOUT) === */
 .hero-section {
     background-color: white;
-    padding: 60px 0;
-    text-align: center;
+    padding: 40px 0;
 }
-/* Style lain untuk hero section tetap sama */
-.hero-section .greeting {
+.hero-card {
+    background-color: white;
+    padding: 35px 40px;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    border: 1px solid var(--border-color);
+    display: flex; /* Kunci utama: bikin jadi flex container */
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Kolom Kiri: Teks Info */
+.hero-text {
+    text-align: left;
+}
+.hero-text .greeting {
     font-size: 18px;
     color: var(--text-color);
     margin: 0;
 }
-.hero-section .mosque-name {
-    font-size: 38px;
+.hero-text .mosque-name {
+    font-size: 32px;
     color: var(--dark-gray);
     margin: 5px 0;
     font-weight: 700;
 }
-.hero-section .mosque-address {
+.hero-text .mosque-address {
     font-size: 15px;
     color: var(--text-color);
     margin: 0;
+    max-width: 450px; /* Biar gak terlalu lebar */
+}
+
+/* Kolom Kanan: Logo Gmaps */
+.hero-map a {
+    display: block;
+    transition: transform 0.3s ease;
+}
+.hero-map a:hover {
+    transform: scale(1.1);
+}
+.hero-map img {
+    width: 100px; /* Ukuran logo gmaps, bisa disesuaikan */
+    height: 100px;
 }
 
 /* === KONTEN DAKWAH (VIDEO) === */
@@ -156,14 +184,53 @@ body {
 }
 
 /* === ABOUT & FOOTER === */
-.about-section {
-    padding: 50px 0;
+/* Style baru untuk kartu sejarah dua kolom */
+.about-card {
+    display: flex; /* Kunci utama: bikin jadi flex container */
+    align-items: center; /* Bikin kontennya rata tengah vertikal */
+    gap: 40px; /* Jarak antara teks dan gambar */
+}
+
+/* Kolom Kiri: Teks */
+.about-text {
+    flex: 1; /* Biar ngambil sisa ruang */
+    text-align: left; /* Teks jadi rata kiri */
+}
+.about-text h2 {
+    text-align: left; /* Judulnya juga rata kiri */
+    margin-bottom: 15px;
+}
+.about-text p {
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* Kolom Kanan: Gambar */
+.about-image {
+    flex-basis: 300px; /* Lebar area gambar */
+    flex-shrink: 0;
+}
+.about-image img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1; /* Bikin gambar jadi kotak 1:1 */
+    object-fit: cover; /* Biar gambar gak gepeng */
+    border-radius: 12px;
+}
+
+/* Footer tetap sama */
+.site-footer {
+    background-color: var(--dark-gray);
+    color: white;
+    padding: 40px 0;
     text-align: center;
 }
-.about-section p {
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.8;
+
+/* Bikin jadi 1 kolom kalo layarnya kecil (Responsive) */
+@media (max-width: 768px) {
+    .about-card {
+        flex-direction: column; /* Teks di atas, gambar di bawah */
+    }
 }
 .site-footer {
     background-color: var(--dark-gray);

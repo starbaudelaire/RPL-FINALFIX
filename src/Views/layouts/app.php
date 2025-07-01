@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title><?= $title ?? 'Admin Panel' ?> | Masjid Nuruttaqwa</title>
+    <title><?= $title ?? 'Admin Panel' ?> | Masjid Nurul Taqwa</title>
     <style>
         :root {
             --sidebar-width: 250px;
@@ -13,7 +13,7 @@
             font-family: sans-serif;
             background-color: #f4f6f9;
             margin: 0;
-            overflow-x: hidden; /* Mencegah horizontal scroll */
+            overflow-x: hidden;
         }
         .app-container {
             display: flex;
@@ -49,7 +49,7 @@
             background-color: white;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             padding: 0 20px;
-            position: sticky; /* Bikin header atas nempel juga */
+            position: sticky;
             top: 0;
             z-index: 999;
         }
@@ -83,14 +83,24 @@
     <div class="app-container">
         
         <aside class="sidebar">
-            <h1><a href="<?= base_url('dashboard') ?>">Masjid Nuruttaqwa</a></h1>
+            <h1><a href="<?= base_url('dashboard') ?>">Masjid Nurul Taqwa</a></h1>
+            
             <nav class="sidebar-nav">
                 <ul>
                     <li><a href="<?= base_url('dashboard') ?>" class="<?= str_contains($_SERVER['REQUEST_URI'], 'dashboard') ? 'active' : '' ?>">Beranda</a></li>
-                    <li><a href="<?= base_url('keuangan') ?>" class="<?= str_contains($_SERVER['REQUEST_URI'], 'keuangan') ? 'active' : '' ?>">Laporan Keuangan</a></li>
-                    <li><a href="<?= base_url('inventaris') ?>" class="<?= str_contains($_SERVER['REQUEST_URI'], 'inventaris') ? 'active' : '' ?>">Daftar Inventaris</a></li>
-                    <li><a href="<?= base_url('admin/peminjaman') ?>" class="<?= str_contains($_SERVER['REQUEST_URI'], 'peminjaman') ? 'active' : '' ?>">Manajemen Peminjaman</a></li>
-                    <li><a href="<?= base_url('jadwal') ?>" class="<?= str_contains($_SERVER['REQUEST_URI'], 'jadwal') ? 'active' : '' ?>">Jadwal Kajian</a></li>
+                    
+                    <?php if (isAdmin() || isSekben()): ?>
+                        <li><a href="<?= base_url('keuangan') ?>" class="<?= str_contains($_SERVER['REQUEST_URI'], 'keuangan') ? 'active' : '' ?>">Laporan Keuangan</a></li>
+                    <?php endif; ?>
+
+                    <?php if (isAdmin() || isRumahTangga()): ?>
+                        <li><a href="<?= base_url('inventaris') ?>" class="<?= str_contains($_SERVER['REQUEST_URI'], 'inventaris') ? 'active' : '' ?>">Daftar Inventaris</a></li>
+                        <li><a href="<?= base_url('admin/peminjaman') ?>" class="<?= str_contains($_SERVER['REQUEST_URI'], 'peminjaman') ? 'active' : '' ?>">Manajemen Peminjaman</a></li>
+                    <?php endif; ?>
+                    
+                    <?php if (isAdmin() || isSekben() || isRumahTangga()): ?>
+                        <li><a href="<?= base_url('jadwal') ?>" class="<?= str_contains($_SERVER['REQUEST_URI'], 'jadwal') ? 'active' : '' ?>">Jadwal Kajian</a></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </aside>
@@ -106,7 +116,7 @@
             </main>
 
             <footer class="app-footer">
-                <p>&copy; <?= date('Y') ?> - Masjid Nuruttaqwa UPN "Veteran" Yogyakarta</p>
+                <p>&copy; <?= date('Y') ?> - Masjid Nurul Taqwa UPN "Veteran" Yogyakarta</p>
             </footer>
         </div>
 
