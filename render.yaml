@@ -4,3 +4,13 @@ services:
     plan: free
     region: singapore
     startCommand: "php -S 0.0.0.0:10000 -t public/"
+    # Kode di bawah ini opsional, tapi bagus buat ngasih tau Render
+    # kapan harus nge-build ulang. Kalo ada error, hapus aja bagian ini.
+    buildFilter:
+      paths:
+      - "app/**"
+      - "config/**"
+      - "public/**"
+      - "src/**"
+      - "composer.json"
+      - ".php-version"
