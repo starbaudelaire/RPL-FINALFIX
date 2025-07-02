@@ -1,8 +1,7 @@
 services:
   - type: web
     name: masjid-nurul-taqwa
-    runtime: php # <--- INI YANG BENER, ANJING, BUKAN 'env'
+    runtime: php
     plan: free
     region: singapore
-    phpVersion: 8.1 # <--- Tambahin ini biar lebih mantep
     startCommand: "php -S 0.0.0.0:10000 -t public/"
